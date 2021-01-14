@@ -4,6 +4,12 @@ import React from 'react'
 import { connect } from 'react-redux'
 import {getCoords} from './Redux/action'
 import RestaurantContainer from './Containers/RestaurantContainer'
+import Nav from './Components/Nav'
+import { Route, Switch } from 'react-router-dom'
+import Favorites from './Components/Favorites';
+import RestaurantBody from './Containers/RestaurantBody';
+import RestaurantDetails from './Components/RestaurantDetails';
+
 
 class App extends React.Component{
 
@@ -15,8 +21,12 @@ class App extends React.Component{
 
     return (
       <div className="App">
-       <h1>Inside APP</h1>
-        {this.props.coords ? <RestaurantContainer /> : <h1>One Moment please</h1>}
+        <Nav />
+        <Switch>
+          <Route path="/home" exact component={RestaurantBody} />
+          <Route path="/favorites" component={Favorites} />
+          <Route path='/home/:id' component={RestaurantDetails}/>
+        </Switch>
       </div>
     );
   }

@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { getRestaurants } from '../Redux/action'
-import RestaurantCard from '../Componants/RestaurantCard'
+import RestaurantCard from '../Components/RestaurantCard'
 
 class RestaurantContainer extends React.Component{
 
@@ -43,6 +43,7 @@ render(){
         <div>
            <h1>RestaurantContainer</h1>
            <button onClick={this.randomClickHandler}>Random!</button>
+           
            {this.props.stateRestaurant ? this.renderRestaurants() : <h2>Finding restaurants near you </h2>}
         </div>
     )
