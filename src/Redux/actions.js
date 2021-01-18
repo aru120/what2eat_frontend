@@ -79,11 +79,11 @@ export function setUser(userObj,history){
         .then(data =>{
             localStorage.setItem("token", data.jwt)
             localStorage.setItem("user_id",data.user.id)
-            console.log("INSIDE SET USER",data.user.favorites)
+            console.log("INSIDE SET USER",data.user.restaurants)
             dispatch({type: actionTypes.setUser, payload: data.user})
 
-             if (data.user.favorites.length != 0){
-                dispatch({type: actionTypes.addFavorite, payload: data.user.favorites})
+             if (data.user.restaurants.length != 0){
+                dispatch({type: actionTypes.addFavorite, payload: data.user.restaurants})
              }
             history.push("/home")
              

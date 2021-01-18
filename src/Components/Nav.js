@@ -18,9 +18,15 @@ class Nav extends React.Component{
                 <NavLink to="/home">
                     <li>Home</li>
                 </NavLink>
-                <NavLink to="/favorites">
+                {this.props.user ? 
+                    <NavLink to="/favorites">
                     <li>Favorites</li>
                 </NavLink>
+                :
+                null
+            
+                }
+                
                 {this.props.user ? this.props.user.username : 
                 <>
                 <NavLink to="/login">   

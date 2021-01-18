@@ -43,35 +43,54 @@ class RestaurantDetails extends React.Component{
 
 
      addToFav = () =>{
-        const user_id = localStorage.getItem("user_id")
-        const yelpid = this.state.restObj.id
-        const yelpalias = this.state.restObj.alias
-        const categoriesArray = []
-        if(this.state.restObj.categories.length !== 0){
-            this.state.restObj.categories.forEach(categorey => categoriesArray.push(categorey.title))
-        }
+        if(!this.props.user){
+            alert("Please Login")
+        } else{
 
-        const favoriteObj = {
-            user_id: user_id,
-            yelpid: yelpid,
-            yelpalias: yelpalias,
-            name: this.state.restObj.name,
-            image: this.state.restObj.image_url,
-            categories: categoriesArray
+            const user_id = localStorage.getItem("user_id")
+            const yelpid = this.state.restObj.id
+            const yelpalias = this.state.restObj.alias
+            const categoriesArray = []
+            if(this.state.restObj.categories.length !== 0){
+                this.state.restObj.categories.forEach(categorey => categoriesArray.push(categorey.title))
+            }
+            console.log(categoriesArray)
+            const favoriteObj = {
+                
+                yelpid: yelpid,
+                yelpalias: yelpalias,
+                name: this.state.restObj.name,
+                image: this.state.restObj.image_url,
+                categories: categoriesArray
+            }
+    
+            fetch('http://localhost:3000/api/restaurant',{
+                method: "POST",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(favoriteObj),
+            })
+            .then(r => r.json())
+            .then(data => {
+                this.props.updateFavorite(data)
+                console.log("RESTAURANT POST",data)
+                return fetch('http://localhost:3000/api/favorite',{
+                    method: "POST",
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        user_id: user_id,
+                        restaurant_id: data.id
+                    }),
+                })
+                .then(r => r.json())
+                .then(favData => console.log("FAVORITE POST", favData))
+            })
         }
-
-        fetch('http://localhost:3000/api/favorite',{
-            method: "POST",
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(favoriteObj),
-        })
-        .then(r => r.json())
-        .then(data => {
-            this.props.updateFavorite(data)
-        })
     }
 
     checkFavorites = () =>{
@@ -117,7 +136,8 @@ class RestaurantDetails extends React.Component{
 
 function msp(state){
     return({
-        favorites: state.favorites
+        favorites: state.favorites,
+        user: state.user
     })
 }
 

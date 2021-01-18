@@ -54,7 +54,9 @@ render(){
 function msp(state){
     return({
         coords: state.coordinates,
-        stateRestaurant: state.restaurants
+        stateRestaurant: state.restaurants,
+        
+
     })
 }
 
