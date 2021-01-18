@@ -8,13 +8,14 @@ import rootReducer from './Redux/rootReducer'
 import thunk from 'redux-thunk'
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router } from 'react-router-dom'
+import history from './History/History'
 
 const store = createStore(rootReducer,applyMiddleware(thunk))
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <Router>
+      <Router history={history}>
     <App />
     </Router>
     </Provider>

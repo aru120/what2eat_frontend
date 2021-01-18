@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { getRestaurants } from '../Redux/action'
+import { getRestaurants } from '../Redux/actions'
 import RestaurantCard from '../Components/RestaurantCard'
 
 class RestaurantContainer extends React.Component{
