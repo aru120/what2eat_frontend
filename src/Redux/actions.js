@@ -12,8 +12,8 @@ export function getCoords(){
 }
 
 
-export function getRestaurants(lat,long){
-    const coordinates = {latitude: lat, longitude: long}
+export function getRestaurants(lat,long,offset){
+    const coordinates = {latitude: lat, longitude: long, offSet: offset}
    
     
 
@@ -30,12 +30,21 @@ export function getRestaurants(lat,long){
     .then(data => 
         {
         const yelpResponse = convertYelpResponse(data.businesses)
-        dispatch({ type: actionTypes.setRestaurants, payload: yelpResponse})
+        if(offset >= 20){
+            dispatch({type: actionTypes.addRestaurants, payload: yelpResponse})
+        }
+        else{
+            dispatch({ type: actionTypes.setRestaurants, payload: yelpResponse})
+
+        }
         }
         )
    
     }
 }
+
+
+
 
 function convertYelpResponse(array){
     let arr = []
@@ -106,6 +115,6 @@ export function updateFavorite(resObj){
 export function removeFavorite(resObj){
     console.log("REMOVE FAVORITE",resObj)
     return function (dispatch){
-        dispatch({type: actionTypes.removeFavorite, payload: resObj.id})
+        dispatch({type: actionTypes.removeFavorite,payload:resObj.id})
     }
 }

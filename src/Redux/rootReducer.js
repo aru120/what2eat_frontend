@@ -20,6 +20,11 @@ function setRestaurants(state = defaultState.restaurants, action){
     switch(action.type){
         case "SET_RESTAURANTS":
             return action.payload;
+        case "ADD_RESTAURANTS":
+            const currentState = state
+            const newRestaurants = action.payload
+            const newState = currentState.concat(newRestaurants)
+            return newState
             default:
                 return state
     }
@@ -45,7 +50,6 @@ function addFavorite(state = defaultState.favorites, action){
             console.log("INSIDE UPDATE FAVORITE", action.payload)
             return [...state,action.payload]
         case "REMOVE_FAVORITE":
-           
             return [...state].filter(restaurant => restaurant.id !== action.payload)
         default:
             return state

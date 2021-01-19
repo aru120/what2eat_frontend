@@ -6,16 +6,22 @@ import RestaurantCard from '../Components/RestaurantCard'
 class RestaurantContainer extends React.Component{
 
     state={
-        randomFlag: false
+        randomFlag: false,
+        currentPage: 0,
+        fetchFlag: true
     }
 
     componentDidMount(){
         const latitude = this.props.coords.latitude
         const longitude = this.props.coords.longitude
-        
-       this.props.getRestaurants(latitude,longitude)
+        {window.addEventListener('scroll',this.infiniteScroll)}
+
+       this.props.getRestaurants(latitude,longitude,this.state.currentPage)
     }
 
+    componentWillMount(){
+        window.removeEventListener('scroll',this.infiniteScroll)
+    }
 
     randomClickHandler =() =>{
         this.setState(prevState => ({randomFlag: !prevState.randomFlag}))
@@ -35,6 +41,31 @@ class RestaurantContainer extends React.Component{
             return this.props.stateRestaurant.map(restaurant => <RestaurantCard key={restaurant.id} restaurantObj={restaurant} /> )
         }
     }
+
+    infiniteScroll = ()=>{
+        const latitude = this.props.coords.latitude
+        const longitude = this.props.coords.longitude
+
+        
+            
+            if(window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight && this.state.fetchFlag){
+                let newPage = this.state.currentPage
+                newPage += 20
+                console.log("CURRENT PAGE", newPage)
+                this.setState(prevState =>({fetchFlag: !prevState.fetchFlag}))
+                this.setState({currentPage: newPage})
+
+                setTimeout(()=>{
+                      this.setState(prevState =>({fetchFlag: !prevState.fetchFlag}))
+                      console.log("INSIDE SET TIMEOUT",this.state.fetchFlag)
+                },5000)
+
+        
+            // this.props.getRestaurants(latitude,longitude,newPage)
+        }
+    }
+
+
 
 
 render(){
@@ -62,7 +93,7 @@ function msp(state){
 
 function mdp(dispatch){
     return({
-        getRestaurants: (latitude,longitude) => dispatch(getRestaurants(latitude,longitude))
+        getRestaurants: (latitude,longitude,offset) => dispatch(getRestaurants(latitude,longitude,offset))
         
     })
 }

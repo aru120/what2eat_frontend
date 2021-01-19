@@ -109,15 +109,13 @@ class RestaurantDetails extends React.Component{
     }
 
     checkFavorites = () =>{
-        let flag = false
-        this.props.favorites.forEach(favorite => {
+        let flag = true
+        const foundObj = this.props.favorites.find(favorite => favorite.yelpid === this.props.match.params.id)
 
-            
-            if(favorite.yelpid === this.props.match.params.id){
-                  flag = true
-            }
-            
-        })
+        console.log("FOUND OBJECT",foundObj)
+        if(this.props.user && !foundObj){
+                      flag = false
+        }
         return flag
     }
 
