@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { getRestaurants } from '../Redux/actions'
 import RestaurantCard from '../Components/RestaurantCard'
+import Search from '../Components/Search'
 
 class RestaurantContainer extends React.Component{
 
@@ -19,7 +20,7 @@ class RestaurantContainer extends React.Component{
        this.props.getRestaurants(latitude,longitude,this.state.currentPage)
     }
 
-    componentWillMount(){
+    componentWillUnmount(){
         window.removeEventListener('scroll',this.infiniteScroll)
     }
 
@@ -55,13 +56,13 @@ class RestaurantContainer extends React.Component{
                 this.setState(prevState =>({fetchFlag: !prevState.fetchFlag}))
                 this.setState({currentPage: newPage})
 
+                this.props.getRestaurants(latitude,longitude,newPage)
                 setTimeout(()=>{
                       this.setState(prevState =>({fetchFlag: !prevState.fetchFlag}))
                       console.log("INSIDE SET TIMEOUT",this.state.fetchFlag)
                 },5000)
 
         
-            // this.props.getRestaurants(latitude,longitude,newPage)
         }
     }
 
@@ -74,7 +75,7 @@ render(){
         <div>
            <h1>RestaurantContainer</h1>
            <button onClick={this.randomClickHandler}>Random!</button>
-           
+           <Search />
            {this.props.stateRestaurant ? this.renderRestaurants() : <h2>Finding restaurants near you </h2>}
         </div>
     )

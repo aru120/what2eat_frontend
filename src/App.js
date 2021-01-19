@@ -11,7 +11,7 @@ import RestaurantBody from './Containers/RestaurantBody';
 import RestaurantDetails from './Components/RestaurantDetails';
 import Login from './Components/Login'
 import Signup from './Components/Signup';
-import { setUser } from './Redux/actions'
+import { setUser,updateUser,reloadFavorite } from './Redux/actions'
 
 
 class App extends React.Component{
@@ -20,7 +20,9 @@ class App extends React.Component{
     this.props.getCoords()
 
     const token = localStorage.getItem("token")
-    
+    const user = JSON.parse(localStorage.getItem("user"))
+
+
     if (token) {
       fetch('http://localhost:3000/api/profile', {
         method: "GET",
@@ -29,7 +31,8 @@ class App extends React.Component{
       .then(r => r.json())
       .then(data => {
           console.log("INSIDE APP COMPOPNENT",data)
-          // this.props.setUser(data)
+          this.props.updateUser(user)
+          this.props.reloadFavorite(user.restaurants)
       })
     }
 
@@ -55,7 +58,9 @@ class App extends React.Component{
 function mdp(dispatch){
   return({
     getCoords: () => dispatch(getCoords()),
-    setUser: (userObj) => dispatch(setUser(userObj))
+    setUser: (userObj) => dispatch(setUser(userObj)),
+    updateUser: (userObj) => dispatch(updateUser(userObj)),
+    reloadFavorite:(favArray) => dispatch(reloadFavorite(favArray))
   })
 }
 

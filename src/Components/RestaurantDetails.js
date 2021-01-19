@@ -8,10 +8,7 @@ class RestaurantDetails extends React.Component{
        this.fetchItem()
    }
 
-    // const [item,setItem] = useState({
-    //     location: {},
-    //     categories: []
-    // }); 
+    
 
     state={
         restObj: null
@@ -120,6 +117,7 @@ class RestaurantDetails extends React.Component{
     }
 
 
+    
 
 
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
+import Search from './Search';
 
 class Nav extends React.Component{
 
@@ -39,6 +40,7 @@ class Nav extends React.Component{
                 {this.props.user ?  <button onClick={this.logOutHandler}>Log out</button>  : null }
                
                 </ul>
+              
             </nav>
         )
     }

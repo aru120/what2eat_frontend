@@ -1,5 +1,4 @@
 import actionTypes from './actionTypes'
-import axios from 'axios'
 
 export function getCoords(){
    return dispatch => {
@@ -12,8 +11,8 @@ export function getCoords(){
 }
 
 
-export function getRestaurants(lat,long,offset){
-    const coordinates = {latitude: lat, longitude: long, offSet: offset}
+export function getRestaurants(lat,long,offset,searchTerm){
+    const coordinates = {latitude: lat, longitude: long, offSet: offset, term: searchTerm}
    
     
 
@@ -88,7 +87,8 @@ export function setUser(userObj,history){
         .then(data =>{
             localStorage.setItem("token", data.jwt)
             localStorage.setItem("user_id",data.user.id)
-            console.log("INSIDE SET USER",data.user.restaurants)
+            localStorage.setItem("user", JSON.stringify(data.user))
+            console.log("INSIDE SET USER",data.user)
             dispatch({type: actionTypes.setUser, payload: data.user})
 
              if (data.user.restaurants.length != 0){
@@ -112,9 +112,21 @@ export function updateFavorite(resObj){
     }
 }
 
+export function reloadFavorite(favArray){
+    return function(dispatch){
+        dispatch({type:actionTypes.reloadFavorites, payload: favArray})
+    }
+}
+
 export function removeFavorite(resObj){
     console.log("REMOVE FAVORITE",resObj)
     return function (dispatch){
         dispatch({type: actionTypes.removeFavorite,payload:resObj.id})
+    }
+}
+
+export function updateUser(userObj){
+    return function(dispatch){
+        dispatch({type: actionTypes.updateUser, payload: userObj})
     }
 }
