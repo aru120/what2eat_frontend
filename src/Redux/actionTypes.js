@@ -4,7 +4,8 @@ const actionTypes ={
     setUser: "SET_USER",
     updateUser: "UPDATE_USER",
     addFavorite: "ADD_FAVORITE",
-    updateFavorite: "UPDATE_FAVORITE"
+    updateFavorite: "UPDATE_FAVORITE",
+    removeFavorite: "REMOVE_FAVORITE"
 }
 
 export default actionTypes

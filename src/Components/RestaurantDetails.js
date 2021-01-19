@@ -1,5 +1,5 @@
 import React, {useState, useEffect } from 'react'
-import { updateFavorite } from '../Redux/actions'
+import { updateFavorite, removeFavorite } from '../Redux/actions'
 import {connect} from 'react-redux'
 
 class RestaurantDetails extends React.Component{
@@ -93,6 +93,21 @@ class RestaurantDetails extends React.Component{
         }
     }
 
+
+    removeFav = ()=>{
+        fetch(`http://localhost:3000/api/user/${this.props.user.id}`)
+        .then(r=>r.json())
+        .then(data=>{
+           const found = data.restaurants.find(restaurant => restaurant.yelpid === this.state.restObj.id)
+           console.log("ISIDE REMOVE",found)
+
+           return fetch(`http://localhost:3000/api/restaurant/${found.id}`,{
+               method: "DELETE"
+           })
+            .then(this.props.removeFavorite(found))
+        })
+    }
+
     checkFavorites = () =>{
         let flag = false
         this.props.favorites.forEach(favorite => {
@@ -105,6 +120,10 @@ class RestaurantDetails extends React.Component{
         })
         return flag
     }
+
+
+
+
 
     render(){
         console.log(this.props.match.params.id)
@@ -122,7 +141,7 @@ class RestaurantDetails extends React.Component{
                 <h3>{this.state.restObj.location.zip_code}</h3>
                 {this.isOpen(this.state.restObj.is_closed)}
                 {this.checkFavorites() ? null :  <button onClick={this.addToFav}>Add to Favorites</button> }
-               
+                <button onClick={this.removeFav}>Remove from Favorite</button>
                 </>    
             :
             <h3> One Moment please</h3>
@@ -143,7 +162,8 @@ function msp(state){
 
 function mdp(dispatch){
     return({
-        updateFavorite: (resObj) => dispatch(updateFavorite(resObj))
+        updateFavorite: (resObj) => dispatch(updateFavorite(resObj)),
+        removeFavorite: (resObj) => dispatch(removeFavorite(resObj))
     })
 }
 

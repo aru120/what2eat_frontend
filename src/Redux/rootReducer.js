@@ -44,6 +44,9 @@ function addFavorite(state = defaultState.favorites, action){
         case "UPDATE_FAVORITE":
             console.log("INSIDE UPDATE FAVORITE", action.payload)
             return [...state,action.payload]
+        case "REMOVE_FAVORITE":
+           
+            return [...state].filter(restaurant => restaurant.id !== action.payload)
         default:
             return state
     }

@@ -102,3 +102,10 @@ export function updateFavorite(resObj){
         dispatch({type: actionTypes.updateFavorite,payload:resObj})
     }
 }
+
+export function removeFavorite(resObj){
+    console.log("REMOVE FAVORITE",resObj)
+    return function (dispatch){
+        dispatch({type: actionTypes.removeFavorite, payload: resObj.id})
+    }
+}
