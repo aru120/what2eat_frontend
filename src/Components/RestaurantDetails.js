@@ -117,7 +117,30 @@ class RestaurantDetails extends React.Component{
     }
 
 
+    checkRemoveFavorites = () =>{
+        let flag = false
+        const foundObj = this.props.favorites.find(favorite => favorite.yelpid === this.props.match.params.id)
+        if(foundObj){
+            flag = true
+        }
+
+        return flag
+    }
     
+
+    checkDistance = (lat2,lon2) =>{
+
+        const lat1 = this.props.coords.latitude
+        const lon1 = this.props.coords.longitude
+        const p = 0.017453292519943295;    
+         const c = Math.cos;
+        const a = 0.5 - c((lat2 - lat1) * p)/2 + 
+          c(lat1 * p) * c(lat2 * p) * 
+          (1 - c((lon2 - lon1) * p))/2;
+
+        const results = 12742 * Math.asin(Math.sqrt(a)); 
+        return results * 0.6214
+    }
 
 
 
@@ -135,9 +158,10 @@ class RestaurantDetails extends React.Component{
                 <h3>{this.state.restObj.location["address1"]}</h3>
                 <h3>{this.state.restObj.location.city},{this.state.restObj.location.state}</h3>
                 <h3>{this.state.restObj.location.zip_code}</h3>
-                {this.isOpen(this.state.restObj.is_closed)}
+                <h3>Distance from you: {this.checkDistance(this.state.restObj.coordinates.latitude,this.state.restObj.coordinates.longitude)} </h3>
+                {this.isOpen(this.state.restObj.hours[0].is_open_now)}
                 {this.checkFavorites() ? null :  <button onClick={this.addToFav}>Add to Favorites</button> }
-                <button onClick={this.removeFav}>Remove from Favorite</button>
+              {this.checkRemoveFavorites() ? <button onClick={this.removeFav}>Remove from Favorite</button> : null }  
                 </>    
             :
             <h3> One Moment please</h3>
@@ -152,7 +176,8 @@ class RestaurantDetails extends React.Component{
 function msp(state){
     return({
         favorites: state.favorites,
-        user: state.user
+        user: state.user,
+        coords: state.coordinates
     })
 }
 

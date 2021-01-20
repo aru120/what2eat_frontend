@@ -5,6 +5,11 @@ export function getCoords(){
        const geolocation = navigator.geolocation;
        geolocation.getCurrentPosition((position) =>{
            console.log(position.coords)
+           const coord = {
+               latitude: position.coords.latitude,
+               longitude: position.coords.longitude
+           }
+           localStorage.setItem("coords", JSON.stringify(coord))
            dispatch({type: actionTypes.getCoordinates, payload: position.coords})
        })
    }
@@ -130,3 +135,9 @@ export function updateUser(userObj){
         dispatch({type: actionTypes.updateUser, payload: userObj})
     }
 }
+
+export function setCoords(coords){
+    return function(dispatch){
+        dispatch({type:actionTypes.setCoords, payload: coords})
+    }
+} 

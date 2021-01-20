@@ -7,7 +7,8 @@ const actionTypes ={
     updateFavorite: "UPDATE_FAVORITE",
     removeFavorite: "REMOVE_FAVORITE",
     addRestaurants: "ADD_RESTAURANTS",
-    reloadFavorites: "RELOAD_FAVORITES"
+    reloadFavorites: "RELOAD_FAVORITES",
+    setCoords: "SET_COORDS"
 }
 
 export default actionTypes
