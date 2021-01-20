@@ -12,6 +12,7 @@ import RestaurantDetails from './Components/RestaurantDetails';
 import Login from './Components/Login'
 import Signup from './Components/Signup';
 import { setUser,updateUser,reloadFavorite } from './Redux/actions'
+import Random from './Components/Random';
 
 
 class App extends React.Component{
@@ -36,6 +37,8 @@ class App extends React.Component{
       })
     }
 
+
+
   }
 
   render(){
@@ -49,6 +52,7 @@ class App extends React.Component{
           <Route path='/home/:id' component={RestaurantDetails}/>
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Signup} />
+          <Route path="/random" component={Random} />
         </Switch>
       </div>
     );

@@ -33,6 +33,9 @@ class Nav extends React.Component{
                 <NavLink to="/login">   
                     <li>Login</li>
                 </NavLink>
+                <NavLink to="/random">
+                    <li>random</li>
+                </NavLink>
                 <NavLink to="/signup">
                     <li>Sign Up</li>
                 </NavLink> 

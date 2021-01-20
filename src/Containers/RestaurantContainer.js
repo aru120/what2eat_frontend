@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { getRestaurants } from '../Redux/actions'
 import RestaurantCard from '../Components/RestaurantCard'
 import Search from '../Components/Search'
-
+import {withRouter} from 'react-router-dom'
 class RestaurantContainer extends React.Component{
 
     state={
@@ -67,14 +67,35 @@ class RestaurantContainer extends React.Component{
     }
 
 
+    fetchItem = async ()=>{
+
+        const randomNumber = Math.floor(Math.random() * Math.floor(900))
+        console.log(randomNumber)
+        const randomObj ={
+            latitude: this.props.coords.latitude,
+            longitude: this.props.coords.longitude,
+            randomNumber: randomNumber
+        }
+        const fetchItem = await fetch(`http://localhost:3000/api/random`,{
+            method: "POST",
+            headers:{
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(randomObj)
+        })
+        const item = await fetchItem.json();
+       console.log(item)
+    }
 
 
 render(){
-    
+    console.log(this.props.history)
     return(
         <div>
            <h1>RestaurantContainer</h1>
-           <button onClick={this.randomClickHandler}>Random!</button>
+           <button onClick={this.randomClickHandler}>Random from list</button>
+           <button onClick={this.fetchItem}>Random a restaurant near you</button>
            <Search />
            {this.props.stateRestaurant ? this.renderRestaurants() : <h2>Finding restaurants near you </h2>}
         </div>
@@ -99,4 +120,4 @@ function mdp(dispatch){
     })
 }
 
-export default connect(msp,mdp)(RestaurantContainer)
+export default withRouter(connect(msp,mdp)(RestaurantContainer))
