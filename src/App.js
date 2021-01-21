@@ -4,7 +4,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import {getCoords} from './Redux/actions'
 import RestaurantContainer from './Containers/RestaurantContainer'
-import Nav from './Components/Nav'
+import Navigation from './Components/Navigation'
 import { Route, Switch } from 'react-router-dom'
 import Favorites from './Components/Favorites';
 import RestaurantBody from './Containers/RestaurantBody';
@@ -13,6 +13,8 @@ import Login from './Components/Login'
 import Signup from './Components/Signup';
 import { setUser,updateUser,reloadFavorite } from './Redux/actions'
 import Random from './Components/Random';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 
 class App extends React.Component{
@@ -45,7 +47,7 @@ class App extends React.Component{
 
     return (
       <div className="App">
-        <Nav />
+        <Navigation />
         <Switch>
           <Route path="/home" exact component={RestaurantBody} />
           <Route path="/favorites" component={Favorites} />

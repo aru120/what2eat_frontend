@@ -1,23 +1,41 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import {withRouter} from 'react-router-dom'
+import {Card, Button} from 'react-bootstrap'
+import '../Style/RestaurantCard.scss'
 
 
 class RestaurantCard extends React.Component{
 
 
+    redirectFromCard =()=>{
+        this.props.history.push(`/home/${this.props.restaurantObj.yelpid}`)
+    }
 
 
     render(){
         
         return(
-            <Link to={`/home/${this.props.restaurantObj.yelpid}`}>
-            <div style={{border: '2px solid black'}}>
-             <img src={this.props.restaurantObj.image} width="200" height="200" />   
-            <h1>{this.props.restaurantObj.name}</h1>
-            {this.props.restaurantObj.categories.length === 0 ? null : <h2>{this.props.restaurantObj.categories.map(cuisine => <p>{cuisine}</p>)}</h2> }
+            <div>
+            <Card className="ml-4 mr-4 mb-5"style={{width: '18rem', height:"25rem"}}>
+                
+                <Card.Img src={this.props.restaurantObj.image} style={{width:"auto", height:"200px"}} />
+                <Card.Body>           
+                      <Card.Title>
+              {this.props.restaurantObj.name}
+             </Card.Title>
+             <Card.Subtitle>
+            {this.props.restaurantObj.address}
+            </Card.Subtitle>
+            <Card.Text>
+            {this.props.restaurantObj.categories.length === 0 ? null : <Card.Text className="categorylist">{this.props.restaurantObj.categories.map(cuisine => <li>{cuisine}</li>)}</Card.Text> }
+            </Card.Text>
+            </Card.Body>
+            <Card.Body>
+            <Button onClick={this.redirectFromCard} variant="primary">See Details</Button>
+            </Card.Body>
 
+            </Card>
             </div>
-            </Link>
         )
     }
 
@@ -25,4 +43,4 @@ class RestaurantCard extends React.Component{
 
 
 
-export default RestaurantCard
+export default withRouter(RestaurantCard)

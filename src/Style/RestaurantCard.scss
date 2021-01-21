@@ -1,0 +1,18 @@
+.categorylist{
+    display: inline;
+    list-style: none;
+    padding: 0px
+}
+
+.categorylist li {
+    display: inline;
+    font-style: italic;
+}
+
+.categorylist li::after{
+    content: ", ";
+}
+
+.categorylist li:last-child::after{
+    content: "";
+}

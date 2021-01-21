@@ -1,9 +1,10 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
-import Search from './Search';
+import {Navbar, Nav} from 'react-bootstrap'
+import '../Style/Navigation.scss'
 
-class Nav extends React.Component{
+class Navigation extends React.Component{
 
      logOutHandler = () =>{
         localStorage.clear()
@@ -13,15 +14,15 @@ class Nav extends React.Component{
     render(){
 
         return(
-            <nav>
+            <Navbar>
                 <h3>What2Eat</h3>
-                <ul>
+                <Nav className="justify-content-end" as="ul">
                 <NavLink to="/home">
-                    <li>Home</li>
+                    Home
                 </NavLink>
                 {this.props.user ? 
                     <NavLink to="/favorites">
-                    <li>Favorites</li>
+                   Favorites
                 </NavLink>
                 :
                 null
@@ -31,20 +32,18 @@ class Nav extends React.Component{
                 {this.props.user ? this.props.user.username : 
                 <>
                 <NavLink to="/login">   
-                    <li>Login</li>
+                  Login
                 </NavLink>
-                <NavLink to="/random">
-                    <li>random</li>
-                </NavLink>
+             
                 <NavLink to="/signup">
-                    <li>Sign Up</li>
+                   Sign Up
                 </NavLink> 
                 </> }
                 {this.props.user ?  <button onClick={this.logOutHandler}>Log out</button>  : null }
                
-                </ul>
+                </Nav>
               
-            </nav>
+            </Navbar>
         )
     }
 }
@@ -55,4 +54,4 @@ function msp(state){
     })
 }
 
-export default connect(msp)(Nav)
+export default connect(msp)(Navigation)

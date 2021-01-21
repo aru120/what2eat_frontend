@@ -4,6 +4,11 @@ import { getRestaurants } from '../Redux/actions'
 import RestaurantCard from '../Components/RestaurantCard'
 import Search from '../Components/Search'
 import {withRouter} from 'react-router-dom'
+import {Container,Row,Col} from 'react-bootstrap'
+import '../Style/RestaurantContainer.scss'
+
+
+
 class RestaurantContainer extends React.Component{
 
     state={
@@ -39,7 +44,7 @@ class RestaurantContainer extends React.Component{
         }
         else{
 
-            return this.props.stateRestaurant.map(restaurant => <RestaurantCard key={restaurant.id} restaurantObj={restaurant} /> )
+            return this.props.stateRestaurant.map(restaurant => <Col><RestaurantCard key={restaurant.id} restaurantObj={restaurant} /> </Col>)
         }
     }
 
@@ -67,25 +72,8 @@ class RestaurantContainer extends React.Component{
     }
 
 
-    fetchItem = async ()=>{
-
-        const randomNumber = Math.floor(Math.random() * Math.floor(900))
-        console.log(randomNumber)
-        const randomObj ={
-            latitude: this.props.coords.latitude,
-            longitude: this.props.coords.longitude,
-            randomNumber: randomNumber
-        }
-        const fetchItem = await fetch(`http://localhost:3000/api/random`,{
-            method: "POST",
-            headers:{
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(randomObj)
-        })
-        const item = await fetchItem.json();
-       console.log(item)
+    randomRedirect = () =>{
+        this.props.history.push("/random")
     }
 
 
@@ -95,9 +83,15 @@ render(){
         <div>
            <h1>RestaurantContainer</h1>
            <button onClick={this.randomClickHandler}>Random from list</button>
-           <button onClick={this.fetchItem}>Random a restaurant near you</button>
+           <button onClick={this.randomRedirect}>Random a restaurant near you</button>
            <Search />
+           <Container className="mt-5" >
+               <Row className="my-auto text-justify row">
            {this.props.stateRestaurant ? this.renderRestaurants() : <h2>Finding restaurants near you </h2>}
+
+               </Row>
+
+           </Container>
         </div>
     )
 }
