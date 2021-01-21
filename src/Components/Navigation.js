@@ -14,30 +14,37 @@ class Navigation extends React.Component{
     render(){
 
         return(
-            <Navbar>
-                <h3>What2Eat</h3>
-                <Nav className="justify-content-end" as="ul">
-                <NavLink to="/home">
-                    Home
-                </NavLink>
-                {this.props.user ? 
-                    <NavLink to="/favorites">
-                   Favorites
-                </NavLink>
-                :
-                null
-            
-                }
+            <Navbar className="navcontainer" variant="dark" bg="dark">
+                <Navbar.Brand>What2Eat</Navbar.Brand>
+                <Nav className="justify-content-end" >
+                    <Nav.Item>
+                        <NavLink to="/home">
+                            Home
+                        </NavLink>
+                    </Nav.Item>
+                    <Nav.Item>
+                        {this.props.user ? 
+                            <NavLink to="/favorites">
+                        Favorites
+                        </NavLink>
+                        :
+                        null
+                    
+                        }
+                    </Nav.Item>
                 
                 {this.props.user ? this.props.user.username : 
                 <>
+                <Nav.Item>
                 <NavLink to="/login">   
                   Login
                 </NavLink>
-             
+                </Nav.Item>
+                <Nav.Item>   
                 <NavLink to="/signup">
                    Sign Up
-                </NavLink> 
+                </NavLink>
+                </Nav.Item> 
                 </> }
                 {this.props.user ?  <button onClick={this.logOutHandler}>Log out</button>  : null }
                
