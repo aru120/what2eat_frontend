@@ -6,7 +6,6 @@ import Search from '../Components/Search'
 import {withRouter} from 'react-router-dom'
 import {Container,Row,Col} from 'react-bootstrap'
 import '../Style/RestaurantContainer.scss'
-import { cuisines } from '../List/Cuisine'
 
 
 
@@ -77,7 +76,12 @@ class RestaurantContainer extends React.Component{
         }
         else{
 
-            return this.props.stateRestaurant.map(restaurant => <Col><RestaurantCard key={restaurant.id} restaurantObj={restaurant} /> </Col>)
+            if(this.props.stateRestaurant.length === 0 ){
+              return  <h1>No Restaurants like that</h1>
+            }
+            else{
+                return this.props.stateRestaurant.map(restaurant => <Col><RestaurantCard key={restaurant.id} restaurantObj={restaurant} /> </Col>)
+            }
         }
     }
 
