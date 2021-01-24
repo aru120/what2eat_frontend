@@ -4,7 +4,8 @@ const defaultState ={
     coordinates: null,
     restaurants: [],
     user: null,
-    favorites: []
+    favorites: [],
+    searchTerm: ""
 }
 
 function setCoords(state = defaultState.coordinates, action){
@@ -58,12 +59,22 @@ function addFavorite(state = defaultState.favorites, action){
     }
 }
 
+function searchTerm (state= defaultState.searchTerm, action){
+    switch(action.type){
+        case "SET_SEARCHTERM":
+            return action.payload
+        default:
+            return state    
+        
+    }
+}
 
 const rootReducer = combineReducers({
     coordinates: setCoords,
     restaurants: setRestaurants,
     user: setUser,
-    favorites: addFavorite
+    favorites: addFavorite,
+    searchTerm: searchTerm
 })
 
 export default rootReducer

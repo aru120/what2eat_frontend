@@ -16,7 +16,7 @@ class Navigation extends React.Component{
         return(
             <Navbar className="navcontainer" variant="dark" bg="dark">
                 <Navbar.Brand>What2Eat</Navbar.Brand>
-                <Nav className="justify-content-end" >
+                <Nav className="ml-auto" >
                     <Nav.Item>
                         <NavLink to="/home">
                             Home

@@ -8,7 +8,8 @@ const actionTypes ={
     removeFavorite: "REMOVE_FAVORITE",
     addRestaurants: "ADD_RESTAURANTS",
     reloadFavorites: "RELOAD_FAVORITES",
-    setCoords: "SET_COORDS"
+    setCoords: "SET_COORDS",
+    setSearchTerm: "SET_SEARCHTERM"
 }
 
 export default actionTypes

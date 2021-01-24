@@ -19,7 +19,7 @@ export function getCoords(){
 export function getRestaurants(lat,long,offset,searchTerm){
     const coordinates = {latitude: lat, longitude: long, offSet: offset, term: searchTerm}
    
-    
+    console.log("SEARCH TERM INSIDE ACTION", coordinates)
 
     return function(dispatch){
         fetch('http://localhost:3000/api/home',{
@@ -141,3 +141,9 @@ export function setCoords(coords){
         dispatch({type:actionTypes.setCoords, payload: coords})
     }
 } 
+
+export function setSearchTerm(term){
+    return function(dispatch){
+        dispatch({type:actionTypes.setSearchTerm, payload: term})
+    }
+}

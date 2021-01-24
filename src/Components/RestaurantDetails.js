@@ -143,7 +143,9 @@ class RestaurantDetails extends React.Component{
         return results.toFixed(2)
     }
 
-
+    cuisinelist  = ()=>{
+        return cuisines.map(index => <p>{index}</p>)
+    }
 
     restaurantHours = () =>{
         const date = new Date()

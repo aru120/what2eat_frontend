@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { getRestaurants } from '../Redux/actions'
+import { getRestaurants, setSearchTerm  } from '../Redux/actions'
 
 class Search extends React.Component{
 
@@ -17,6 +17,7 @@ class Search extends React.Component{
         const latitude = this.props.coords.latitude
         const longitude = this.props.coords.longitude
         console.log(this.state.term)
+        this.props.setSearchTerm(this.state.term)
         this.props.getRestaurants(latitude,longitude,0,this.state.term)
 
 
@@ -40,7 +41,8 @@ function msp(state){
 
 function mdp(dispatch){
     return({
-        getRestaurants: (latitude,longitude,offset,term) => dispatch(getRestaurants(latitude,longitude,offset,term))
+        getRestaurants: (latitude,longitude,offset,term) => dispatch(getRestaurants(latitude,longitude,offset,term)),
+        setSearchTerm: (term) => dispatch(setSearchTerm(term))
     })
 }
 export default connect(msp,mdp)(Search)
