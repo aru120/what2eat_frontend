@@ -88,14 +88,15 @@ render(){
     return(
         <div>
             
-           <h1>RestaurantContainer</h1>
+           
           
-           <button  onClick={this.randomClickHandler}>Random from list</button>
-           <button onClick={this.randomRedirect}>Random a restaurant near you</button>
+           <button className="randomButton" onClick={this.randomClickHandler}>Random from list</button>
+           <button className="randomButton" onClick={this.randomRedirect}>Random a restaurant near you</button>
            
            <Search />
            {/* {this.cuisinelist()} */}
            <Container className="mt-5" >
+                   <h2>Restaurants near you</h2>
                <Row className="my-auto text-justify row">
            {this.props.stateRestaurant ? this.renderRestaurants() : <h2>Finding restaurants near you </h2>}
 
