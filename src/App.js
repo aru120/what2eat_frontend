@@ -1,5 +1,5 @@
 import logo from './logo.svg';
-// import './App.css';
+import './App.scss';
 import React from 'react'
 import { connect } from 'react-redux'
 import {getCoords} from './Redux/actions'

@@ -1,7 +1,9 @@
 import React from 'react'
 import { cuisines } from '../List/Cuisine'
 import { getRestaurants,setSearchTerm } from '../Redux/actions'
+import {Button} from 'react-bootstrap'
 import {connect} from 'react-redux'
+import '../Style/Cuisine.scss'
 
 class Cuisinelist extends React.Component{
 
@@ -12,8 +14,8 @@ class Cuisinelist extends React.Component{
 
   cuisinelist  = ()=>{
         const shuffled = this.shuffleArray(cuisines)
-        const slicedArray = shuffled.slice(0,5)
-        return slicedArray.map(index => <button onClick={this.runner.bind(this,{index})}>{index}</button>)
+        const slicedArray = shuffled.slice(0,8)
+        return slicedArray.map(index => <Button bsPrefix="cuisineButton" onClick={this.runner.bind(this,{index})}>{index}</Button>)
     }
 
     cuisinelistHandler=(value)=>{
@@ -58,7 +60,7 @@ class Cuisinelist extends React.Component{
 
     render(){
         return(
-            <div>
+            <div className="cuisineList">
                 {this.cuisinelist()}
             </div>
         )

@@ -1,6 +1,9 @@
 import React, {useState, useEffect } from 'react'
 import { updateFavorite, removeFavorite } from '../Redux/actions'
 import {connect} from 'react-redux'
+import {Container, Row, Col, Carousel} from 'react-bootstrap'
+import Review from './Reviews'
+import '../Style/Details.scss'
 
 class RestaurantDetails extends React.Component{
 
@@ -11,7 +14,8 @@ class RestaurantDetails extends React.Component{
     
 
     state={
-        restObj: null
+        restObj: null,
+        restObjreviews: null
     }
 
      fetchItem = async ()=>{
@@ -27,6 +31,24 @@ class RestaurantDetails extends React.Component{
         const item = await fetchItem.json();
         this.setState({restObj: item})
         console.log(item)
+        this.fetchReview()
+
+    }
+
+    fetchReview = async ()=>{
+        const fetchReview = await  fetch(`http://localhost:3000/api/home/${this.props.match.params.id}/reviews`,{
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(this.props.match.params.id),
+        })
+        const review = await fetchReview.json();
+        console.log(review)
+        this.setState({restObjreviews: review})
+
+
     }
 
      isOpen = (bool) =>{
@@ -143,9 +165,7 @@ class RestaurantDetails extends React.Component{
         return results.toFixed(2)
     }
 
-    cuisinelist  = ()=>{
-        return cuisines.map(index => <p>{index}</p>)
-    }
+   
 
     restaurantHours = () =>{
         const date = new Date()
@@ -191,15 +211,29 @@ class RestaurantDetails extends React.Component{
 
     }
 
+    renderImages =()=>{
+        return this.state.restObj.photos.map(photo=><Carousel.Item><img className=" w-100" style={{width:"auto", height:"500px"}} src={photo} /></Carousel.Item>)
+    }
+
+    renderReviews =()=>{
+       return this.state.restObjreviews.reviews.map(review => <Review key={review.id} reviewObj={review} />)
+    }
 
 
     render(){
         console.log(this.props.match.params.id)
         return(
-            <div>
+            <Container className="container11">
                 {this.state.restObj ?
                 <>
-                 <img src={this.state.restObj.image_url} />
+                <Row className="row11">
+                    <Col className="column1">
+                        <Carousel>
+                    {this.renderImages()}
+                 {/* <img className="image" src={this.state.restObj.image_url} /> */}
+                 </Carousel>
+                 </Col>
+                 <Col className="column2">
                 <h1>{this.state.restObj.name}</h1>
                 {this.state.restObj.categories.map(category => <span>{category.title} </span>)}
                  {this.restaurantHours()}
@@ -212,12 +246,20 @@ class RestaurantDetails extends React.Component{
                 {this.isOpen(this.state.restObj.hours[0].is_open_now)}
                 {this.checkFavorites() ? null :  <button onClick={this.addToFav}>Add to Favorites</button> }
               {this.checkRemoveFavorites() ? <button onClick={this.removeFav}>Remove from Favorite</button> : null }  
-                </>    
+              </Col>
+                </Row>
+
+                <div> 
+                    {this.state.restObjreviews ? this.renderReviews() : null}
+                    </div>   
+                </>
+                
             :
             <h3> One Moment please</h3>
             }
                
-            </div>
+            </Container>
+            
         )
     }
 

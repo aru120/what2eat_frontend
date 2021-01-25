@@ -14,17 +14,19 @@ class Navigation extends React.Component{
     render(){
 
         return(
-            <Navbar className="navcontainer" variant="dark" bg="dark">
-                <Navbar.Brand>What2Eat</Navbar.Brand>
-                <Nav className="ml-auto" >
-                    <Nav.Item>
-                        <NavLink to="/home">
+            <Navbar className="navcontainer" >
+                <Navbar.Brand>
+                    <img src="/what2eatlogo.png" alt="what2eatlogo" />
+                </Navbar.Brand>
+                <Nav className="ml-auto navLinks" >
+                    <Nav.Item className="mr-3">
+                        <NavLink className="navyLink" to="/home">
                             Home
                         </NavLink>
                     </Nav.Item>
-                    <Nav.Item>
+                    <Nav.Item className="mr-3 navyLink">
                         {this.props.user ? 
-                            <NavLink to="/favorites">
+                            <NavLink  className="navyLink" to="/favorites">
                         Favorites
                         </NavLink>
                         :
@@ -33,20 +35,23 @@ class Navigation extends React.Component{
                         }
                     </Nav.Item>
                 
-                {this.props.user ? this.props.user.username : 
+                {this.props.user ? 
+                <Nav.Item className="mr-3 navyLink">
+                {this.props.user.username}
+                </Nav.Item> : 
                 <>
-                <Nav.Item>
-                <NavLink to="/login">   
+                <Nav.Item className="mr-3 navyLink">
+                <NavLink className="navyLink" to="/login">   
                   Login
                 </NavLink>
-                </Nav.Item>
-                <Nav.Item>   
-                <NavLink to="/signup">
+                </Nav.Item >
+                <Nav.Item className="mr-3 navyLink">   
+                <NavLink className="navyLink" to="/signup">
                    Sign Up
                 </NavLink>
                 </Nav.Item> 
                 </> }
-                {this.props.user ?  <button onClick={this.logOutHandler}>Log out</button>  : null }
+                {this.props.user ?  <Nav.Item className="mr-3 navyLink" onClick={this.logOutHandler}>Log out</Nav.Item>  : null }
                
                 </Nav>
               

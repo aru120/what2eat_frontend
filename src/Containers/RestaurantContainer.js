@@ -36,37 +36,6 @@ class RestaurantContainer extends React.Component{
     }
 
 
-    // cuisinelist  = ()=>{
-    //     const shuffled = this.shuffleArray(cuisines)
-    //     const slicedArray = shuffled.slice(0,5)
-    //     return slicedArray.map(index => <button onClick={this.cuisinelistHandler.bind(this,{index})}>{index}</button>)
-    // }
-
-    // cuisinelistHandler=(value)=>{
-    //     console.log("VALUE",value.index)
-    //     const latitude = this.props.coords.latitude
-    //     const longitude = this.props.coords.longitude
-    //     this.props.setSearchTerm(value.index)
-    //     console.log("CUISINE HANDLER SEARCH TERM", this.props.searchTerm)
-    //     this.props.getRestaurants(latitude,longitude,0,this.props.searchTerm)
-    // }
-
-
-    // shuffleArray = (array) =>{
-    //     let m = array.length
-    //     let t = null;
-    //     let i = 0;
-
-    //     while(m){
-    //         i = Math.floor(Math.random() * m--);
-
-    //         t = array[m];
-    //         array[m] = array[i];
-    //         array[i] = t;
-    //     }
-
-    //     return array
-    // }
 
     renderRestaurants = ()=>{
         if(this.state.randomFlag){
@@ -80,7 +49,7 @@ class RestaurantContainer extends React.Component{
               return  <h1>No Restaurants like that</h1>
             }
             else{
-                return this.props.stateRestaurant.map(restaurant => <Col><RestaurantCard key={restaurant.id} restaurantObj={restaurant} /> </Col>)
+                return this.props.stateRestaurant.map(restaurant => <Col key={restaurant.id}><RestaurantCard key={restaurant.id} restaurantObj={restaurant} /> </Col>)
             }
         }
     }
