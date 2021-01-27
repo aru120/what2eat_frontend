@@ -96,7 +96,7 @@ export function setUser(userObj,history){
             console.log("INSIDE SET USER",data.user)
             dispatch({type: actionTypes.setUser, payload: data.user})
 
-             if (data.user.restaurants.length != 0){
+             if (data.user.restaurants.length !== 0){
                 dispatch({type: actionTypes.addFavorite, payload: data.user.restaurants})
              }
             history.push("/home")

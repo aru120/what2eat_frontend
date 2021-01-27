@@ -15,7 +15,7 @@ class Cuisinelist extends React.Component{
   cuisinelist  = ()=>{
         const shuffled = this.shuffleArray(cuisines)
         const slicedArray = shuffled.slice(0,8)
-        return slicedArray.map(index => <Button bsPrefix="cuisineButton" onClick={this.runner.bind(this,{index})}>{index}</Button>)
+        return slicedArray.map(index => <li className="cuisineButton" onClick={this.runner.bind(this,{index})}>{index}</li>)
     }
 
     cuisinelistHandler=(value)=>{

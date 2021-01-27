@@ -1,14 +1,19 @@
 .cuisineButton{
-    margin-right: 25px;
-    padding: 8px;
-    color: #3b3b3b;
-    border-radius: 5px;
-    background-color: #36b3c9;
-    border-style:none;
+   display: inline;
+   margin-right: 30px;
+   padding: 4px;
 }
 
 .cuisineButton:hover{
-    background-color: #259bb0;
+    border: solid white;
     transition: 0.5s;
     color:white;
+    cursor: pointer;
 }
+
+.cuisineList{
+    height:38px;
+    padding: 8px 0;
+    background-color: #259bb0;
+}
+

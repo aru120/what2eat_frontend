@@ -2,6 +2,7 @@ import React, {useState, useEffect } from 'react'
 import { updateFavorite, removeFavorite } from '../Redux/actions'
 import {connect} from 'react-redux'
 import {Container, Row, Col, Carousel} from 'react-bootstrap'
+import Map from './Map'
 import Review from './Reviews'
 import '../Style/Details.scss'
 
@@ -234,9 +235,9 @@ class RestaurantDetails extends React.Component{
                  </Carousel>
                  </Col>
                  <Col className="column2">
-                <h1>{this.state.restObj.name}</h1>
+                <h1 className="restTitle">{this.state.restObj.name}</h1>
                 {this.state.restObj.categories.map(category => <span>{category.title} </span>)}
-                 {this.restaurantHours()}
+                 { this.state.restObj.hours[0] ? this.restaurantHours() : null }
                 <h4>Rating: {this.state.restObj.rating}/5</h4>
                 <h3>{this.state.restObj.display_phone} </h3>
                 <h3>{this.state.restObj.location["address1"]}</h3>
@@ -248,10 +249,19 @@ class RestaurantDetails extends React.Component{
               {this.checkRemoveFavorites() ? <button onClick={this.removeFav}>Remove from Favorite</button> : null }  
               </Col>
                 </Row>
-
-                <div> 
+                    <Row>
+                        <Col>
+                    <div> 
                     {this.state.restObjreviews ? this.renderReviews() : null}
+                  {/* {this.state.restObj ?   <Map  center={this.state.restObj.coordinates}/> : null } */}
                     </div>   
+                        
+                        </Col>
+                    <Col>
+                    <iframe  width="450" height="350" frameborder="0" style={{"border": "0"}} src={`https://www.google.com/maps/embed/v1/place?key=${process.env.REACT_APP_GOOGLE_KEY}&q=${this.state.restObj.location["address1"]},${this.state.restObj.zip_code}&center=${this.state.restObj.coordinates.latitude},${this.state.restObj.coordinates.longitude}&zoom=15`}> </iframe>
+
+                    </Col>
+                    </Row>
                 </>
                 
             :
