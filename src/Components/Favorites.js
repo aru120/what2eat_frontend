@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import RestaurantCard from './RestaurantCard'
 import {Container, Row, Col} from 'react-bootstrap'
+import '../Style/Favorite.scss'
 
 class Favorite extends React.Component{
 
@@ -26,8 +27,10 @@ class Favorite extends React.Component{
     render(){
         return(
             <div>
-            <h1>Favorites</h1>
-            <button onClick={this.randomClickHandler}>Random Favorites</button>
+            {/* <h1 className="favHeader">Favorites</h1> */}
+            <div className="favButtonContainer">
+            <button className="randomFavButton" onClick={this.randomClickHandler}>Random Favorites</button>
+            </div>
             <Container className="mt-5">
                 <Row className="my-auto text-justify">
             {this.renderFavorites()}

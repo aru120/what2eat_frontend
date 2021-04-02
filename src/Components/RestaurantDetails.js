@@ -237,14 +237,14 @@ class RestaurantDetails extends React.Component{
                  <Col className="column2">
                 <h1 className="restTitle">{this.state.restObj.name}</h1>
                 {this.state.restObj.categories.map(category => <span>{category.title} </span>)}
-                 { this.state.restObj.hours[0] ? this.restaurantHours() : null }
+                 { this.state.restObj.hours ? this.restaurantHours() : null }
                 <h4>Rating: {this.state.restObj.rating}/5</h4>
                 <h3>{this.state.restObj.display_phone} </h3>
                 <h3>{this.state.restObj.location["address1"]}</h3>
                 <h3>{this.state.restObj.location.city},{this.state.restObj.location.state}</h3>
                 <h3>{this.state.restObj.location.zip_code}</h3>
                 <h3>Distance: {this.checkDistance(this.state.restObj.coordinates.latitude,this.state.restObj.coordinates.longitude)}miles </h3>
-                {this.isOpen(this.state.restObj.hours[0].is_open_now)}
+                {this.state.restObj.hours ? this.isOpen(this.state.restObj.hours[0].is_open_now) : null}
                 {this.checkFavorites() ? null :  <button onClick={this.addToFav}>Add to Favorites</button> }
               {this.checkRemoveFavorites() ? <button onClick={this.removeFav}>Remove from Favorite</button> : null }  
               </Col>

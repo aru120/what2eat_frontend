@@ -1,0 +1,25 @@
+.randomFavButton {
+    
+    margin: 5px 0;
+    padding: 8px;
+    color: #3b3b3b;
+    border-radius: 5px;
+    background-color: #36b3c9;
+    border-style:none;
+
+}
+
+.randomFavButton:hover{
+    background-color: #259bb0;
+    transition: 0.5s;
+    color:white;
+}
+
+.favButtonContainer{
+    text-align:center;
+    margin-top: 10vh;
+}
+
+// .favHeader{
+//     margin-top: 15px;
+// }

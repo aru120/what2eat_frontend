@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { getRestaurants, setSearchTerm  } from '../Redux/actions'
 
+
 class Search extends React.Component{
 
     state={
@@ -27,7 +28,7 @@ class Search extends React.Component{
         return(
            <form onSubmit={this.searchHandler}>
                <input type="text" name="term" placeholder="Cuisine,Restaurant" value={this.state.term} onChange={this.changeHandler}/>
-               <button>Search</button>
+               <button className="randomButton">Search</button>
            </form>
         )
     }
